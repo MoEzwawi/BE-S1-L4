@@ -61,17 +61,35 @@ public class Dipendente {
         return "Dipendente{" +
                 "matricola='" + matricola + '\'' +
                 ", stipendio=" + stipendio +
-                ", importoOrarioStraordinario=" + importoOrarioStraordinario +
                 ", livello=" + livello +
                 ", dipartimento=" + dipartimento +
                 '}';
     }
-    public void promuovi(){
+    public Livello promuovi(){
         switch (this.livello){
-            case OPERAIO -> this.livello = Livello.IMPIEGATO;
-            case IMPIEGATO -> this.livello = Livello.QUADRO;
-            case QUADRO -> this.livello = Livello.DIRIGENTE;
-            case DIRIGENTE -> System.err.println("Il dipendente "+ this.matricola + " è già un dirigente.");
+            case OPERAIO -> {
+                this.livello = Livello.IMPIEGATO;
+                this.stipendio = stipendioBase*1.2;
+            }
+            case IMPIEGATO -> {
+                this.livello = Livello.QUADRO;
+                this.stipendio = stipendioBase*1.5;
+            }
+            case QUADRO -> {
+                this.livello = Livello.DIRIGENTE;
+                this.stipendio = stipendioBase*2;
+            }
+            case DIRIGENTE -> {
+                System.err.println("Il dipendente "+ this.matricola + " è già un dirigente.");
+            }
         }
+        return this.livello;
+    }
+    public static double calcolaPaga(Dipendente dipendente){
+        return dipendente.stipendio;
+    }
+
+    public static double calcolaPaga(Dipendente dipendente, int oreDiStraordinario) {
+        return dipendente.stipendio + dipendente.importoOrarioStraordinario*oreDiStraordinario;
     }
 }
