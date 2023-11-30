@@ -1,7 +1,7 @@
 package entities;
 
 public class Dipendente {
-    public static double stipendioBase = 1000;
+    public final static double stipendioBase = 1000;
     private String matricola;
     private double stipendio;
     private double importoOrarioStraordinario;
